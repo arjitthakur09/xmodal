@@ -13,10 +13,11 @@ function App() {
   const openModal = () => setShowModal(true);
 
   const closeModalOnOutsideClick = (e) => {
-    if (e.target.className === "modal") {
-      setShowModal(false);
-    }
-  };
+  if (e.target.classList.contains("modal")) {
+    setShowModal(false);
+  }
+};
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
