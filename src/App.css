@@ -12,21 +12,21 @@ html, body, #root {
 
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  inset: 0; /* top:0, right:0, bottom:0, left:0 */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background-color: transparent; /* transparent so root click works */
+  pointer-events: none; /* let clicks pass through */
 }
 
 .modal-content {
-  background: #fff;
+  background: white;
   padding: 20px;
   border-radius: 8px;
+  pointer-events: auto; /* only modal-content catches clicks */
 }
+
 
 button {
   padding: 10px 16px;
