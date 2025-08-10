@@ -11,41 +11,20 @@ function App() {
     phone: "",
   });
 
-  // Open modal
   const openModal = () => setShowModal(true);
 
-  // Close modal on outside click
   const closeModalOnOutsideClick = (e) => {
     if (e.target.classList.contains("modal")) {
       setShowModal(false);
     }
   };
 
-  // Track form input
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // Validation logic
   const validateForm = () => {
     const { username, email, dob, phone } = formData;
-
-    if (!username.trim()) {
-      alert("Please fill out the Username field.");
-      return false;
-    }
-    if (!email.trim()) {
-      alert("Please fill out the Email field.");
-      return false;
-    }
-    if (!dob.trim()) {
-      alert("Please fill out the Date of Birth field.");
-      return false;
-    }
-    if (!phone.trim()) {
-      alert("Please fill out the Phone Number field.");
-      return false;
-    }
 
     if (!email.includes("@")) {
       alert("Invalid email. Please check your email address.");
@@ -55,22 +34,36 @@ function App() {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
       return false;
     }
-
-    const today = new Date();
-    const dobDate = new Date(dob);
-    if (dobDate > today) {
-      alert("Invalid date of birth. Date cannot be in the future.");
+    if (dob) {
+      const today = new Date();
+      const dobDate = new Date(dob);
+      if (dobDate > today) {
+        alert("Invalid date of birth. Date cannot be in the future.");
+        return false;
+      }
+    }
+    if (!username) {
+      alert("Please fill out the Username field.");
       return false;
     }
-
+    if (!email) {
+      alert("Please fill out the Email field.");
+      return false;
+    }
+    if (!dob) {
+      alert("Please fill out the Date of Birth field.");
+      return false;
+    }
+    if (!phone) {
+      alert("Please fill out the Phone Number field.");
+      return false;
+    }
     return true;
   };
 
-  // Submit form
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Reset
       setFormData({
         username: "",
         email: "",
@@ -81,7 +74,6 @@ function App() {
     }
   };
 
-  // Modal JSX (via Portal)
   const modalElement = (
     <div className="modal" onClick={closeModalOnOutsideClick}>
       <div className="modal-content">
@@ -131,12 +123,10 @@ function App() {
   );
 
   return (
-    <>
-      <div className="App">
-        {!showModal && <button onClick={openModal}>Open Form</button>}
-      </div>
+    <div className="App">
+      <button onClick={openModal}>Open Form</button>
       {showModal && ReactDOM.createPortal(modalElement, document.body)}
-    </>
+    </div>
   );
 }
 
